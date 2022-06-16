@@ -1,0 +1,85 @@
+CREATE TABLE products (
+    product_id INTEGER PRIMARY KEY,
+    product_name TEXT NOT NULL,
+    product_price INTEGER NOT NULL,
+    product_manufacturer TEXT NOT NULL,
+    product_category TEXT NOT NULL
+);
+
+
+INSERT INTO products (
+    product_name, 
+    product_price, 
+    product_manufacturer, 
+    product_category
+) VALUES (
+    "TV", 
+    3200, 
+    "Belarus", 
+    "Home appliances"
+);
+
+INSERT INTO products (
+    product_name, 
+    product_price, 
+    product_manufacturer, 
+    product_category
+) VALUES (
+    "Table", 
+    650, 
+    "Poland", 
+    "Furniture"
+);
+
+INSERT INTO products (
+    product_name, 
+    product_price, 
+    product_manufacturer, 
+    product_category
+) VALUES (
+    "Fridge", 
+    1790, 
+    "France", 
+    "Home appliances"
+);
+
+CREATE TABLE customers(
+    customer_id INTEGER PRIMARY KEY,
+    customer_name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    product_id INTEGER NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES  products(product_id)
+);
+
+
+INSERT INTO customers (
+    customer_name, 
+    email, 
+    product_id
+) VALUES (
+    "Valeria",
+    "valeriya@gmail.com",
+    1
+); 
+
+INSERT INTO customers (
+    customer_name, 
+    email, 
+    product_id
+) VALUES (
+    "Angelina",
+    "angelina@gmail.com",
+    3
+); 
+
+INSERT INTO customers (
+    customer_name, 
+    email, 
+    product_id
+) VALUES (
+    "Alina",
+    "alina@gmail.com",
+    3
+); 
+
+SELECT customer_id, customer_name, P.product_name, P.product_price FROM customers JOIN products P where customers.customer_id == P.product_id; 
