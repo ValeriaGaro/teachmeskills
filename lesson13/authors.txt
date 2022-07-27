@@ -1,0 +1,59 @@
+CREATE TABLE authors(
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE chats(
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE topics(
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    author_id INTEGER UNIQUE NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES authors(id)
+);
+
+CREATE TABLE authors_chats(
+    id INTEGER PRIMARY KEY,
+    author_id INTEGER NOT NULL,
+    chat_id INTEGER NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES authors(id),
+    FOREIGN KEY (chat_id) REFERENCES chats(id)
+);
+
+
+INSERT INTO authors(name) VALUES ("Angelina Dorte");
+INSERT INTO authors(name) VALUES ("Peter Smith");
+INSERT INTO authors(name) VALUES ("Pavel Kislyak");
+INSERT INTO authors(name) VALUES ("Alina Vorontsova");
+INSERT INTO authors(name) VALUES ("Olha Verup");
+
+INSERT INTO topics(name, author_id) VALUES ("About animals", 1);
+INSERT INTO topics(name, author_id) VALUES ("Cars and our life", 4);
+INSERT INTO topics(name, author_id) VALUES ("How can we spend our free time", 2);
+INSERT INTO topics(name, author_id) VALUES ("Plants are so easy", 3);
+INSERT INTO topics(name, author_id) VALUES ("IT_books", 5);
+
+
+INSERT INTO chats (name) VALUES ("BMW items Minsk");
+INSERT INTO chats (name) VALUES ("Parties and night life in Grodno");
+INSERT INTO chats (name) VALUES ("Potato and 1001 receipes");
+INSERT INTO chats (name) VALUES ("Algorithms in Python");
+INSERT INTO chats (name) VALUES ("BirdsHelp Belarus");
+
+INSERT INTO authors_chats(author_id, chat_id) VALUES (1,2);
+INSERT INTO authors_chats(author_id, chat_id) VALUES (1,4);
+INSERT INTO authors_chats(author_id, chat_id) VALUES (2,3);
+INSERT INTO authors_chats(author_id, chat_id) VALUES (2,5);
+INSERT INTO authors_chats(author_id, chat_id) VALUES (3,2);
+INSERT INTO authors_chats(author_id, chat_id) VALUES (3,5);
+INSERT INTO authors_chats(author_id, chat_id) VALUES (4,3);
+INSERT INTO authors_chats(author_id, chat_id) VALUES (5,1);
+
+
+SELECT * FROM topics;
+SELECT * FROM topics JOIN authors ON topics.id == authors.id;
+SELECT topics.id, topics.name, authors.name FROM topics JOIN authors ON topics.author_id == authors.id;
+SELECT topics.id, topics.name, authors.name FROM topics LEFT OUTER JOIN authors ON topics.author_id == authors.id;
